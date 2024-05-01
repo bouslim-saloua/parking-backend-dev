@@ -4,21 +4,21 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@AllArgsConstructor
 @Getter
 @Setter
-public class Utilisateur implements Serializable{
+@AllArgsConstructor
+public class Place implements Serializable{
 /**
 	 * 
 	 */
@@ -26,13 +26,11 @@ public class Utilisateur implements Serializable{
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
 private Long id;
-private String nom;
-private String prenom;
-private String email;
-private String cin;
-private String password;
-private String codeSQr;
-
-@OneToMany(mappedBy = "utilisateur")
+private int numero;
+private boolean reserve;
+@ManyToOne
+private Parking parking;
+@OneToMany(mappedBy = "place")
 private List<Reservation> reservations;
+
 }
