@@ -32,6 +32,7 @@ private String email;
 private String cin;
 private String password;
 private String codeSQr;
+private String telephone;
 
 @OneToMany(mappedBy = "utilisateur")
 private List<Reservation> reservations;
