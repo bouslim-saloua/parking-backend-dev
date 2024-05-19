@@ -4,12 +4,14 @@
  */
 package com.emsi.parking.controller;
 
+import com.emsi.parking.config.QRCodeGenerator;
 import com.emsi.parking.model.Utilisateur;
 import com.emsi.parking.payload.JwtResponse;
 import com.emsi.parking.payload.LoginRequest;
 import com.emsi.parking.payload.RegisterRequest;
 import com.emsi.parking.repository.UtilisateurRepository;
 import com.emsi.parking.security.JwtTokenProvider;
+import java.nio.file.Paths;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,26 +40,44 @@ public class AuthController {
 
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
+    private final String storageDirectoryPath = Paths.get("uploaded-images").toAbsolutePath().toString();
+
 
     @PostMapping("/register")
     public String registerUser(@RequestBody RegisterRequest registerRequest) {
         if (utilisateurRepository.existsByEmail(registerRequest.getEmail())) {
             return "Email is already taken!";
         }
-
+       
+        
+        
+        try {
+           String qrCode = registerRequest.getEmail()+"_"+System.currentTimeMillis();
+            String qrCodePath = "qr_codes/" + registerRequest.getEmail() + "_" + System.currentTimeMillis() + ".png";
+           QRCodeGenerator.generateQRCodeImage(registerRequest.getEmail(), 250, 250, qrCodePath);
+            // Further registration logic...
         Utilisateur utilisateur = new Utilisateur();
         utilisateur.setNom(registerRequest.getNom());
         utilisateur.setPrenom(registerRequest.getPrenom());
         utilisateur.setEmail(registerRequest.getEmail());
         utilisateur.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         utilisateur.setCin(registerRequest.getCin());
-        utilisateur.setCodeQr(registerRequest.getCodeQr());
-        utilisateur.setCodeQrImagePath(registerRequest.getCodeQrImagePath());
+        utilisateur.setCodeQrImagePath(qrCodePath);
+        utilisateur.setCodeQr(qrCode);
         utilisateur.setTelephone(registerRequest.getTelephone());
-
-        utilisateurRepository.save(utilisateur);
-
+         utilisateurRepository.save(utilisateur);
+         
         return "User registered successfully";
+        } catch (Exception e) {
+            // Handle exception
+            e.printStackTrace();
+            
+        return "Errroooor registring user";
+        }
+
+        // Enregistrer l'utilisateur dans la base de données (code DAO ou repository)
+        // utilisateurRepository.save(utilisateur);  
+       
     }
 
     @PostMapping("/login")
@@ -68,6 +88,7 @@ public class AuthController {
                         loginRequest.getPassword()
                 )
         );
+        
 
         String jwt = jwtTokenProvider.generateToken(authentication);
 
