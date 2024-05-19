@@ -12,12 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 public class Utilisateur implements Serializable{
 /**
 	 * 
@@ -31,7 +33,8 @@ private String prenom;
 private String email;
 private String cin;
 private String password;
-private String codeSQr;
+private String codeQr;
+private String codeQrImagePath;
 private String telephone;
 
 @OneToMany(mappedBy = "utilisateur")
