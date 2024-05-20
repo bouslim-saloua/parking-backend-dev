@@ -51,7 +51,7 @@ public class AuthController {
         if (utilisateurRepository.existsByTelephone(registerRequest.getTelephone())) {
             return "Phone number is already taken!";
         }
-        if (utilisateurRepository.existsByCIN(registerRequest.getCin())) {
+        if (utilisateurRepository.existsByCin(registerRequest.getCin())) {
             return "CIN is already taken!";
         }
         

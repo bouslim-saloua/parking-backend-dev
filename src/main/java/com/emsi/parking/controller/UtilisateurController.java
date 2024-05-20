@@ -1,10 +1,12 @@
 package com.emsi.parking.controller;
 
+import com.emsi.parking.config.QRCodeReader;
 import com.emsi.parking.converter.impl.UtilisateurGetDtoConverter;
 import com.emsi.parking.dto.UtilisateurGetDto;
 import com.emsi.parking.dto.UtilisateurPostDto;
 import com.emsi.parking.model.Utilisateur;
 import com.emsi.parking.service.UtilisateurService;
+import com.google.zxing.NotFoundException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -46,5 +54,11 @@ return ResponseEntity.ok().body(UtilisateurGetDtoConverter.convertToDTO(utilisat
     @GetMapping("/id/{id}")
     public ResponseEntity<?> getUtilisateurById(@PathVariable long id){
         return ResponseEntity.ok().body(utilisateurService.getUtilisateurById(id));
+    }
+    
+    
+    @PostMapping("/read-qr")
+    public UtilisateurGetDto readQRCode(@RequestParam("file") MultipartFile file) throws NotFoundException {
+        return utilisateurService.readQRCode(file);
     }
 }
