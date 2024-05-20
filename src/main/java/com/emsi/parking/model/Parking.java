@@ -32,5 +32,10 @@ public class Parking implements Serializable{
 	
 	@OneToMany(mappedBy="parking")
 	private List<Place> places;
+   
+	// Ensure getId method is properly implemented
+    public Long getId() {
+        return id;
+    }
 
 }

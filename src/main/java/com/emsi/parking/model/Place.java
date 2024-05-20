@@ -33,4 +33,29 @@ private Parking parking;
 @OneToMany(mappedBy = "place")
 private List<Reservation> reservations;
 
+        public int getNumero() {
+         return this.numero;
+         }
+
+       public void setNumero(int numero) {
+       this.numero = numero;
+       }
+       
+       public boolean isReserve() {
+           return this.reserve;
+       }
+
+       public void setReserve(boolean reserve) {
+           this.reserve = reserve;
+       }
+ 
+       public void setParking(Parking parking) {
+           this.parking = parking;
+       }
+
+       public Parking getParking() {
+           return this.parking;
+       }
+
+
 }

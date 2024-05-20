@@ -7,5 +7,5 @@ import com.emsi.parking.model.Parking;
 
 @Repository
 public interface ParkingRepository extends JpaRepository<Parking, Long> {
-
+	
 }
