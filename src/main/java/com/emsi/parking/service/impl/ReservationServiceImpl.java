@@ -23,7 +23,7 @@ public class ReservationServiceImpl implements ReservationService{
     final UtilisateurRepository utilisateurRepository;
     
     @Override
-    public Reservation ajouer(Reservation reservation) throws Exception{
+    public Reservation ajouter(Reservation reservation) throws Exception{
         Reservation reservationFromDB = reservationRepository.findById(reservation.getId()).orElse(null);
         //si une réservation avec l id reservation.getId() existe déjà dans la base de données on doit générer une exception
         if(reservationFromDB != null ) throw new Exception("LA réservation avec l'id "+reservationFromDB.getId()+" existe déjà");

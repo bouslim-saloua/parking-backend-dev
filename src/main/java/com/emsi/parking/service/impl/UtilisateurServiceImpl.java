@@ -21,11 +21,11 @@ public class UtilisateurServiceImpl implements UtilisateurService{
     final UtilisateurPostConverter utilisateurPostConverter;
     final UtilisateurGetDtoConverter utilisateurGetDtoConverter;
     @Override
-    public Utilisateur update(UtilisateurPostDto utilisateurPostDto) throws Exception {
-        Utilisateur utilisateurFromDB = utilisateurRepository.findById(utilisateurPostDto.getId()).orElse(null);
-        if(utilisateurFromDB == null) throw new Exception("User not found");
-        utilisateurPostDto.setId(utilisateurFromDB.getId());
-        return utilisateurRepository.save(utilisateurPostConverter.convertToDM(utilisateurPostDto));
+    public Utilisateur update(UtilisateurPostDto utilisateurPostDto) throws Exception{
+    Utilisateur utilisateurFromDB = utilisateurRepository.findById(utilisateurPostDto.getId()).orElse(null);
+    if(utilisateurFromDB == null) throw new Exception("User not found");
+    utilisateurPostDto.setId(utilisateurFromDB.getId());
+    return utilisateurRepository.save(utilisateurPostConverter.convertToDM(utilisateurPostDto));
     }
 
     @Override
