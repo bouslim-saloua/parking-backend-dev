@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.emsi.parking.service.ParkingService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -38,6 +39,18 @@ public class ParkingServiceImpl implements ParkingService{
         Parking parkingFromDB = parkingRepository.findById(id).orElse(null);
         if(parkingFromDB == null) throw new Exception("Parking not found");
         return parkingFromDB;
+    }
+
+    @Override
+    public List<Parking> findAllDisponible() {
+        return parkingRepository.findAllDisponible();
+    }
+
+    @Override
+    public List<String> getAllLocations() {
+        return parkingRepository.findAll().stream()
+                .map(Parking::getLocation)
+                .collect(Collectors.toList());
     }
 
 }

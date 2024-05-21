@@ -8,4 +8,9 @@ public interface PlaceService {
     Place modifier(Place place) throws Exception;
     List<Place> listePlaces();
     Place getPlaceById(long id) throws Exception;
+    List<Place> findAllDisponiblePlaces();
+    
+    List<Place> findAllReservedPlaces();
+    List<Place> findByParkingId(Long parkingId);
+
 }

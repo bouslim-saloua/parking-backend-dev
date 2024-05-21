@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
  *
  * @author bssal
  */
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/user/auth")
 public class AuthController {
@@ -100,4 +101,6 @@ public class AuthController {
 
         return new JwtResponse(jwt);
     }
+    
+    
 }
