@@ -48,4 +48,19 @@ public class ReservationServiceImpl implements ReservationService{
         return reservationRepository.save(reservation);
     }
 
+    @Override
+    public int nombreTotalReservations() {
+        return reservationRepository.nombreTotalReservations();
+    }
+
+    @Override
+    public int nombreTotalReservationsAnnulee() {
+        return reservationRepository.nombreTotalReservationsAnnulee();
+    }
+
+    @Override
+    public int nombreTotalReservationsEnCours() {
+        return reservationRepository.nombreTotalReservationsEnCours();
+    }
+
 }
