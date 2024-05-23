@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @ComponentScan
 @SpringBootApplication
-@EnableJpaRepositories("com.emsi.parking.repository")
+@EnableJpaRepositories(basePackages = { "com.emsi.parking.repository"})
 @EntityScan(basePackages = {"com.emsi.parking.model"})
 public class ParkingApplication {
 

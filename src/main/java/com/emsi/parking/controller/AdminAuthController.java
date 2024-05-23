@@ -17,15 +17,20 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 /**
  *
  * @author bssal
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/user/auth")
-public class AuthController {
+@RequestMapping("/api/admin/auth")
+public class AdminAuthController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -45,16 +50,11 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public String registerUser(@RequestBody RegisterRequest registerRequest) {
+    public String registerAdmin(@RequestBody RegisterRequest registerRequest) {
         if (utilisateurRepository.existsByEmail(registerRequest.getEmail())) {
             return "Email is already taken!";
         }
-        if (utilisateurRepository.existsByTelephone(registerRequest.getTelephone())) {
-            return "Phone number is already taken!";
-        }
-        if (utilisateurRepository.existsByCin(registerRequest.getCin())) {
-            return "CIN is already taken!";
-        }
+       
         
         
         try {
@@ -71,7 +71,7 @@ public class AuthController {
         utilisateur.setCodeQrImagePath(qrCodePath);
         utilisateur.setCodeQr(qrCode);
         utilisateur.setTelephone(registerRequest.getTelephone());
-        utilisateur.setRole("user");
+        utilisateur.setRole("admin");
          utilisateurRepository.save(utilisateur);
          
         return "User registered successfully";
@@ -101,6 +101,4 @@ public class AuthController {
 
         return new JwtResponse(jwt);
     }
-    
-    
 }

@@ -8,4 +8,8 @@ public interface ParkingService {
     Parking modifier(Parking parking) throws Exception;
     List<Parking> listeParkings();
     Parking getParkingById(long id) throws Exception;
+    List<Parking> findAllDisponible();
+    List<String> getAllLocations();
+    
+    
 }

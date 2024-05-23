@@ -36,6 +36,7 @@ private String password;
 private String codeQr;
 private String codeQrImagePath;
 private String telephone;
+private String role;
 
 @OneToMany(mappedBy = "utilisateur")
 private List<Reservation> reservations;

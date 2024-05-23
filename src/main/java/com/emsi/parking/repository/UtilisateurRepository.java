@@ -13,5 +13,7 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> 
     Utilisateur findByTelephone(String telephone);
     Optional<Utilisateur> findByEmail(String email);
     boolean existsByEmail(String email);
+    boolean existsByTelephone(String telephone);
+    boolean existsByCin(String cin);
 
 }

@@ -40,4 +40,21 @@ public class PlaceServiceImpl implements PlaceService{
         return placeFromDB;
     }
 
+    @Override
+    public List<Place> findAllDisponiblePlaces() {
+        return placeRepository.findAllDisponiblePlaces();
+    }
+
+    @Override
+    public List<Place> findAllReservedPlaces() {
+        return placeRepository.findAllReservedPlaces();
+    }
+
+    @Override
+    public List<Place> findByParkingId(Long parkingId) {
+        return placeRepository.findByParkingId(parkingId);
+    }
+
+    
+
 }

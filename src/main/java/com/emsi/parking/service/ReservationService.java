@@ -18,4 +18,5 @@ void deleteById(Long id);
 Reservation cancelReservation(Long reservationId) throws Exception;
 
 Long countReservationsToday();
+
 }
