@@ -153,22 +153,12 @@
    </dependency>
 
 
-        <dependency>
+<dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-        <!-- dependencies for qr code-->
-        <dependency>
-            <groupId>com.google.zxing</groupId>
-            <artifactId>core</artifactId>
-            <version>3.4.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.zxing</groupId>
-            <artifactId>javase</artifactId>
-            <version>3.4.1</version>
-        </dependency>
+        
     
 <dependency>
 
@@ -210,25 +200,6 @@
 
 </dependency>
 
-    <!-- Spring Boot Starter Security -->
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-security</artifactId>
-    </dependency>
-    
-    <!-- Spring Boot Starter OAuth2 Resource Server -->
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
-    </dependency>
-    
-    <!-- JWT Library -->
-    <dependency>
-        <groupId>io.jsonwebtoken</groupId>
-        <artifactId>jjwt</artifactId>
-        <version>0.9.1</version>
-    </dependency>
-
 
 <dependency>
 
@@ -239,23 +210,6 @@
 <scope>runtime</scope>
 
 </dependency>
- <dependency>
-    <groupId>com.paypal.sdk</groupId>
-    <artifactId>paypal-core</artifactId>
-    <version>1.7.2</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/com.paypal.sdk/checkout-sdk -->
-<dependency>
-			<groupId>com.paypal.sdk</groupId>
-			<artifactId>rest-api-sdk</artifactId>
-			<version>1.4.2</version>
-		</dependency>
-
- <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-thymeleaf</artifactId>
-</dependency>
- 
 </dependencies>
 
 

@@ -24,15 +24,15 @@ public class Reservation implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-        @Temporal(javax.persistence.TemporalType.DATE)
+	@Temporal(javax.persistence.TemporalType.DATE)
 	private Date dateReservation;
 	private String status;
-        @Temporal(javax.persistence.TemporalType.DATE)
+	@Temporal(javax.persistence.TemporalType.DATE)
 	private Date dateEntree;
-        @Temporal(javax.persistence.TemporalType.DATE)
+	@Temporal(javax.persistence.TemporalType.DATE)
 	private Date dateSortie;
-        private int heureEntree;
-        private int heureSortie;
+	private int heureEntree;
+	private int heureSortie;
 	@ManyToOne
 	private Utilisateur utilisateur;
 	@ManyToOne
@@ -40,13 +40,8 @@ public class Reservation implements Serializable{
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "paiement_id", referencedColumnName = "id")
 	private Paiement paiement;
+	public Reservation(){
 
-        //default constructor
-        public Reservation(){
-            
-        }
-   
-	
-	
+	}
 
 }
