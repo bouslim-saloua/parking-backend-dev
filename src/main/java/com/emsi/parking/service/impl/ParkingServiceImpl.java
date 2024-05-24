@@ -46,11 +46,22 @@ public class ParkingServiceImpl implements ParkingService{
         return parkingRepository.findAllDisponible();
     }
 
-    @Override
+    /*@Override
     public List<String> getAllLocations() {
         return parkingRepository.findAll().stream()
                 .map(Parking::getLocation)
                 .collect(Collectors.toList());
+    }
+    */
+    @Override
+    public int nombreTotalParking() {
+        return parkingRepository.nombreTotalParking();
+    }
+
+    //à compléter 
+    @Override
+    public List<String> getAllAdresses() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

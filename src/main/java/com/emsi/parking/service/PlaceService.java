@@ -12,5 +12,5 @@ public interface PlaceService {
     
     List<Place> findAllReservedPlaces();
     List<Place> findByParkingId(Long parkingId);
-
+    
 }

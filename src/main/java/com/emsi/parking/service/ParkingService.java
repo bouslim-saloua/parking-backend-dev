@@ -9,7 +9,8 @@ public interface ParkingService {
     List<Parking> listeParkings();
     Parking getParkingById(long id) throws Exception;
     List<Parking> findAllDisponible();
-    List<String> getAllLocations();
+    List<String> getAllAdresses();
+    int nombreTotalParking();
     
     
 }
