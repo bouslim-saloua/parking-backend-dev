@@ -1,11 +1,11 @@
 package com.emsi.parking.service.impl;
-
 import com.emsi.parking.model.Parking;
 import com.emsi.parking.repository.ParkingRepository;
 import org.springframework.stereotype.Service;
 
 import com.emsi.parking.service.ParkingService;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import java.util.stream.Collectors;
 
@@ -14,7 +14,8 @@ import java.util.stream.Collectors;
 public class ParkingServiceImpl implements ParkingService{
 
     final ParkingRepository parkingRepository;
-    @Override
+
+   /* @Override
     public Parking ajouter(Parking parking) throws Exception{
         Parking parkingFromDB = parkingRepository.findById(parking.getId()).orElse(null);
          if(parkingFromDB != null) throw new Exception("parking with id " + parking.getId() + "already exists");
@@ -27,7 +28,7 @@ public class ParkingServiceImpl implements ParkingService{
         if(parkingFromDB == null) throw new Exception("parking with id " + parking.getId() + "doesn't exist");
         return parkingRepository.save(parking);
         
-    }
+    }*/
 
     @Override
     public List<Parking> listeParkings() {
@@ -52,5 +53,31 @@ public class ParkingServiceImpl implements ParkingService{
                 .map(Parking::getLocation)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Parking createParking(Parking parking) {
+        return parkingRepository.save(parking);
+    }
+    
+     @Override
+    public Parking updateParking(Long id, Parking updatedParking) {
+    Optional<Parking> existingParkingOptional = parkingRepository.findById(id);
+    if (existingParkingOptional.isPresent()) {
+        Parking existingParking = existingParkingOptional.get();
+        existingParking.setNom(updatedParking.getNom());
+        existingParking.setLocation(updatedParking.getLocation());
+        existingParking.setCapacite(updatedParking.getCapacite());
+        existingParking.setStatus(updatedParking.getStatus());        
+        return parkingRepository.save(existingParking);
+    } else {
+        throw new RuntimeException("Parking not found with id: " + id);
+    }
+}
+
+    @Override
+    public void deleteParking(Long id) {
+        parkingRepository.deleteById(id);
+    }
+  
 
 }
