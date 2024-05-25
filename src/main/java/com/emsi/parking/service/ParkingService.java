@@ -9,8 +9,10 @@ public interface ParkingService {
     List<Parking> findAllDisponible();
     List<String> getAllLocations();
     Parking createParking(Parking parking);
-     Parking updateParking(Long id, Parking updatedParking);
+    Parking updateParking(Long id, Parking parking) throws Exception;
     void deleteParking(Long id);
+   
+   
     
     
 }

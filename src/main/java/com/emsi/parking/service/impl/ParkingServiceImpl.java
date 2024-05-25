@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import java.util.stream.Collectors;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RequiredArgsConstructor
 @Service
@@ -59,7 +62,7 @@ public class ParkingServiceImpl implements ParkingService{
         return parkingRepository.save(parking);
     }
     
-     @Override
+ /*    @Override
     public Parking updateParking(Long id, Parking updatedParking) {
     Optional<Parking> existingParkingOptional = parkingRepository.findById(id);
     if (existingParkingOptional.isPresent()) {
@@ -72,12 +75,22 @@ public class ParkingServiceImpl implements ParkingService{
     } else {
         throw new RuntimeException("Parking not found with id: " + id);
     }
-}
+}*/
+
+   @Override
+    public Parking updateParking(Long id, Parking parking) throws Exception {
+        Parking parkingFromDB = parkingRepository.findById(id).orElse(null);
+        if (parkingFromDB == null) throw new Exception("Parking with id " + id + " doesn't exist");
+        parking.setId(id);
+        return parkingRepository.save(parking);
+    }
 
     @Override
     public void deleteParking(Long id) {
         parkingRepository.deleteById(id);
     }
-  
+
+    
+
 
 }
