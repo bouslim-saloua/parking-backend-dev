@@ -1,6 +1,7 @@
 package com.emsi.parking.controller;
 
 import com.emsi.parking.google.GoogleMapsService;
+import com.emsi.parking.model.Parking;
 import com.emsi.parking.service.ParkingService;
 import io.swagger.annotations.Api;
 import java.util.List;
@@ -41,4 +42,9 @@ public class ParkingController {
         return ResponseEntity.ok().body(parkingService.getAllAdresses());
     }
 
+       @GetMapping("/secteurs/{secteurId}/parkings")
+    public ResponseEntity<?> getParkingsBySecteur(@PathVariable Long secteurId) {
+        return ResponseEntity.ok().body(parkingService.findBySecteur(secteurId));
+
+    }
 }

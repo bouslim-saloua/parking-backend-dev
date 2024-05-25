@@ -1,19 +1,22 @@
 package com.emsi.parking.service.impl;
 
+import com.emsi.parking.exception.ResourceNotFoundException;
 import com.emsi.parking.model.Parking;
+import com.emsi.parking.model.Secteur;
 import com.emsi.parking.repository.ParkingRepository;
+import com.emsi.parking.repository.SecteurRepository;
 import org.springframework.stereotype.Service;
 
 import com.emsi.parking.service.ParkingService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class ParkingServiceImpl implements ParkingService{
 
     final ParkingRepository parkingRepository;
+    final SecteurRepository secteurRepository;
     @Override
     public Parking ajouter(Parking parking) throws Exception{
         Parking parkingFromDB = parkingRepository.findById(parking.getId()).orElse(null);
@@ -64,4 +67,12 @@ public class ParkingServiceImpl implements ParkingService{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    @Override
+    public List<Parking> findBySecteur(Long secteurId) throws ResourceNotFoundException{
+        Secteur secteur = secteurRepository.findById(secteurId)
+                           .orElseThrow(() -> new ResourceNotFoundException("Secteur not found"));
+        return parkingRepository.findBySecteur(secteur);
+    }
+
+    
 }
