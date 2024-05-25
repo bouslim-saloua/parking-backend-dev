@@ -12,10 +12,12 @@ public interface PlaceService {
     
     List<Place> findAllReservedPlaces();
     List<Place> findByParkingId(Long parkingId);
+
     void savePlace(Place place);
     void deletePlace(Long id);
     void updatePlace(Long id, Place updatedPlace);
     Place getPlaceById(Long id);
     List<Place> getAllPlaces();
+
 
 }

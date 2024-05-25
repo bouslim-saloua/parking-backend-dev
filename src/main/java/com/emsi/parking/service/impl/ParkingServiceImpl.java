@@ -47,11 +47,22 @@ public class ParkingServiceImpl implements ParkingService{
         return parkingRepository.findAllDisponible();
     }
 
-    @Override
+    /*@Override
     public List<String> getAllLocations() {
         return parkingRepository.findAll().stream()
                 .map(Parking::getLocation)
                 .collect(Collectors.toList());
+    }
+    */
+    @Override
+    public int nombreTotalParking() {
+        return parkingRepository.nombreTotalParking();
+    }
+
+    //à compléter 
+    @Override
+    public List<String> getAllAdresses() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -65,7 +76,7 @@ public class ParkingServiceImpl implements ParkingService{
     if (existingParkingOptional.isPresent()) {
         Parking existingParking = existingParkingOptional.get();
         existingParking.setNom(updatedParking.getNom());
-        existingParking.setLocation(updatedParking.getLocation());
+        existingParking.setAdresse(updatedParking.getAdresse());
         existingParking.setCapacite(updatedParking.getCapacite());
         existingParking.setStatus(updatedParking.getStatus());        
         return parkingRepository.save(existingParking);
@@ -78,6 +89,8 @@ public class ParkingServiceImpl implements ParkingService{
     public void deleteParking(Long id) {
         parkingRepository.deleteById(id);
     }
+
+    
   
 
 }

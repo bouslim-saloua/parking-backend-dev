@@ -18,5 +18,6 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
     List<Place> findAllReservedPlaces();
     
     List<Place> findByParkingId(Long parkingId);
+    
 
 }

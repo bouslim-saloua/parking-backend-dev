@@ -12,4 +12,8 @@ public interface ParkingRepository extends JpaRepository<Parking, Long> {
 ///Costumized queries
 @Query(value="SELECT p FROM Parking p WHERE p.status='disponible'")
 List<Parking> findAllDisponible();
+
+@Query(value="SELECT COUNT(*) FROM Parking")
+int nombreTotalParking();
+
 }

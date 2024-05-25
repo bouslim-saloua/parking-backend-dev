@@ -44,7 +44,7 @@ public class ParkingController {
     
     @GetMapping("/locations")
     public ResponseEntity<?> getAllLocations() {
-        return ResponseEntity.ok().body(parkingService.getAllLocations());
+        return ResponseEntity.ok().body(parkingService.getAllAdresses());
     }
 
     @PostMapping
