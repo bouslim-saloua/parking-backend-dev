@@ -6,14 +6,20 @@ import com.emsi.parking.model.Secteur;
 import java.util.List;
 
 public interface ParkingService {
-    Parking ajouter(Parking parking) throws Exception;
-    Parking modifier(Parking parking) throws Exception;
     List<Parking> listeParkings();
     Parking getParkingById(long id) throws Exception;
     List<Parking> findAllDisponible();
+
+   
+    Parking createParking(Parking parking);
+     Parking updateParking(Long id, Parking updatedParking);
+    void deleteParking(Long id);
+
     List<String> getAllAdresses();
     int nombreTotalParking();
+
     List<Parking> findBySecteur(Long secteurId) throws ResourceNotFoundException;
+
     
     
 }

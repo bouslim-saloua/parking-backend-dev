@@ -28,7 +28,11 @@ private Long id;
 private double montant;
 private String status;
 private Date datePaiement;
-private String modePaimenet;
+private String modePaiement;
 @OneToOne(mappedBy="paiement")
 private Reservation reservation;
+
+public Paiement() {
+	
+}
 }
