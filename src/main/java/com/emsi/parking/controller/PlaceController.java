@@ -3,6 +3,7 @@ import com.emsi.parking.model.Parking;
 import com.emsi.parking.model.Place;
 import com.emsi.parking.repository.ParkingRepository;
 import com.emsi.parking.repository.PlaceRepository;
+import com.emsi.parking.service.ParkingService;
 import com.emsi.parking.service.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -80,5 +81,12 @@ public class PlaceController {
         placeService.deletePlace(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllPlaces() {
+        return ResponseEntity.ok().body(placeService.getAllPlaces());
+        
+    }
+
 }
 

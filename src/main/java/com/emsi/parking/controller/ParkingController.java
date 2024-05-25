@@ -42,10 +42,10 @@ public class ParkingController {
     return ResponseEntity.ok().body(parkingService.findAllDisponible());
     }
     
-    @GetMapping("/locations")
+   /* @GetMapping("/adresses")
     public ResponseEntity<?> getAllLocations() {
         return ResponseEntity.ok().body(parkingService.getAllAdresses());
-    }
+    }*/
 
     @PostMapping
     public ResponseEntity<Parking> createParking(@RequestBody Parking parking) {
@@ -53,10 +53,10 @@ public class ParkingController {
         return new ResponseEntity<>(createdParking, HttpStatus.CREATED);
     }
 
-  @PutMapping("/modifier")
-public ResponseEntity<?> modifierParking(@RequestBody Parking parking) {
+  @PutMapping("/modifier/id/{id}")
+public ResponseEntity<?> modifierParking(@PathVariable Long id, @RequestBody Parking parking) {
     try {
-        Parking updatedParking = parkingService.updateParking(parking.getId(), parking);
+        Parking updatedParking = parkingService.updateParking(id, parking);
         return ResponseEntity.ok().body(updatedParking);
     } catch (Exception e) {
         return ResponseEntity.badRequest().body(e.getMessage());
@@ -74,4 +74,9 @@ public ResponseEntity<?> modifierParking(@RequestBody Parking parking) {
         return ResponseEntity.ok().body(parkingService.findBySecteur(secteurId));
 
     }
+    
+    @GetMapping("/all")
+     public ResponseEntity<?> getAll() {
+        return ResponseEntity.ok().body(parkingService.getAll());
+     }
 }

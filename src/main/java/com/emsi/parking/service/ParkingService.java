@@ -8,17 +8,14 @@ import java.util.List;
 public interface ParkingService {
     List<Parking> listeParkings();
     Parking getParkingById(long id) throws Exception;
-    List<Parking> findAllDisponible();
-
-   
+    List<Parking> findAllDisponible();  
     Parking createParking(Parking parking);
      Parking updateParking(Long id, Parking updatedParking);
     void deleteParking(Long id);
-
-    List<String> getAllAdresses();
+    //List<String> getAllAdresses();
     int nombreTotalParking();
-
     List<Parking> findBySecteur(Long secteurId) throws ResourceNotFoundException;
+    List<Parking> getAll();
 
     
     

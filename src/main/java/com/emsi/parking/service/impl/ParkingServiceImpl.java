@@ -70,11 +70,7 @@ public class ParkingServiceImpl implements ParkingService{
         return parkingRepository.nombreTotalParking();
     }
 
-    //à compléter 
-    @Override
-    public List<String> getAllAdresses() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 
     @Override
     public Parking createParking(Parking parking) {
@@ -104,13 +100,21 @@ public class ParkingServiceImpl implements ParkingService{
     
   
 
-
+    @Override
     public List<Parking> findBySecteur(Long secteurId) throws ResourceNotFoundException{
         Secteur secteur = secteurRepository.findById(secteurId)
                            .orElseThrow(() -> new ResourceNotFoundException("Secteur not found"));
         return parkingRepository.findBySecteur(secteur);
     }
 
+    @Override
+    public List<Parking> getAll() {
+        return parkingRepository.findAll();
+    }
+
+   
+
+    
     
 
 }
