@@ -115,9 +115,9 @@ public class ParkingServiceImpl implements ParkingService{
 
     @Override
     public List<Parking> findBySecteur(Long secteurId) throws ResourceNotFoundException{
-        Secteur secteur = secteurRepository.findById(secteurId)
-                           .orElseThrow(() -> new ResourceNotFoundException("Secteur not found"));
-        return parkingRepository.findBySecteur(secteur);
+       /* Secteur secteur = secteurRepository.findById(secteurId)
+                           .orElseThrow(() -> new ResourceNotFoundException("Secteur not found"));*/
+        return parkingRepository.findBySecteurId(secteurId);
     }
 
     @Override

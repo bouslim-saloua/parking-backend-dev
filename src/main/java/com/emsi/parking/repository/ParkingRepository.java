@@ -7,6 +7,7 @@ import com.emsi.parking.model.Parking;
 import com.emsi.parking.model.Secteur;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 @Repository
 public interface ParkingRepository extends JpaRepository<Parking, Long> {
@@ -17,5 +18,7 @@ List<Parking> findAllDisponible();
 @Query(value="SELECT COUNT(*) FROM Parking")
 int nombreTotalParking();
 
-List<Parking> findBySecteur(Secteur secteur);
+//List<Parking> findBySecteur(Secteur secteur);
+ @Query("SELECT p FROM Parking p WHERE p.secteur.id = :secteurId")
+    List<Parking> findBySecteurId(@Param("secteurId") Long secteurId);
 }
