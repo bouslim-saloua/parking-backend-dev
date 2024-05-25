@@ -53,30 +53,55 @@ public class ParkingController {
         return new ResponseEntity<>(createdParking, HttpStatus.CREATED);
     }
 
-  @PutMapping("/modifier/id/{id}")
-public ResponseEntity<?> modifierParking(@PathVariable Long id, @RequestBody Parking parking) {
-    try {
-        Parking updatedParking = parkingService.updateParking(id, parking);
-        return ResponseEntity.ok().body(updatedParking);
-    } catch (Exception e) {
-        return ResponseEntity.badRequest().body(e.getMessage());
+   
+   @PutMapping("/modifier/{id}")
+    public ResponseEntity<?> modifierParking(@PathVariable Long id, @RequestBody Parking parking) {
+        try {
+            Parking updatedParking = parkingService.updateParking(id, parking);
+            return ResponseEntity.ok().body(updatedParking);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
-}
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteParking(@PathVariable Long id) {
         parkingService.deleteParking(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
+     @GetMapping("/all")
+    public ResponseEntity<List<Parking>> getAllParkings() {
+        List<Parking> parkings = parkingService.listeParkings();
+        return ResponseEntity.ok().body(parkings);
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Parking> getParkingById(@PathVariable long id) {
+    try {
+        Parking parking = parkingService.getParkingById(id);
+        return ResponseEntity.ok().body(parking);
+       } catch (Exception e) {
+        return ResponseEntity.badRequest().body(null);
+       }
+}
+
+    
+   
+
     
     @GetMapping("/secteurs/{secteurId}/parkings")
     public ResponseEntity<?> getParkingsBySecteur(@PathVariable Long secteurId) {
         return ResponseEntity.ok().body(parkingService.findBySecteur(secteurId));
 
     }
-    
+
     @GetMapping("/all")
      public ResponseEntity<?> getAll() {
         return ResponseEntity.ok().body(parkingService.getAll());
      }
+
 }
