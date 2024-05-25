@@ -68,4 +68,10 @@ public ResponseEntity<?> modifierParking(@RequestBody Parking parking) {
         parkingService.deleteParking(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    
+    @GetMapping("/secteurs/{secteurId}/parkings")
+    public ResponseEntity<?> getParkingsBySecteur(@PathVariable Long secteurId) {
+        return ResponseEntity.ok().body(parkingService.findBySecteur(secteurId));
+
+    }
 }

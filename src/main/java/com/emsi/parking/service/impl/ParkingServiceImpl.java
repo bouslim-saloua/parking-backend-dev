@@ -1,21 +1,32 @@
 package com.emsi.parking.service.impl;
+
+
+import com.emsi.parking.exception.ResourceNotFoundException;
+
 import com.emsi.parking.model.Parking;
+import com.emsi.parking.model.Secteur;
 import com.emsi.parking.repository.ParkingRepository;
+import com.emsi.parking.repository.SecteurRepository;
 import org.springframework.stereotype.Service;
 
 import com.emsi.parking.service.ParkingService;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class ParkingServiceImpl implements ParkingService{
 
     final ParkingRepository parkingRepository;
+    final SecteurRepository secteurRepository;
+
 
    /* @Override
+=======
+    final SecteurRepository secteurRepository;
+    @Override
+>>>>>>> feat-6
     public Parking ajouter(Parking parking) throws Exception{
         Parking parkingFromDB = parkingRepository.findById(parking.getId()).orElse(null);
          if(parkingFromDB != null) throw new Exception("parking with id " + parking.getId() + "already exists");
@@ -92,5 +103,14 @@ public class ParkingServiceImpl implements ParkingService{
 
     
   
+
+
+    public List<Parking> findBySecteur(Long secteurId) throws ResourceNotFoundException{
+        Secteur secteur = secteurRepository.findById(secteurId)
+                           .orElseThrow(() -> new ResourceNotFoundException("Secteur not found"));
+        return parkingRepository.findBySecteur(secteur);
+    }
+
+    
 
 }
