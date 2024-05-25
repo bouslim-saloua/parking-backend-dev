@@ -12,13 +12,15 @@ public interface ParkingService {
 
    
     Parking createParking(Parking parking);
-     Parking updateParking(Long id, Parking updatedParking);
+    Parking updateParking(Long id, Parking parking) throws Exception;
     void deleteParking(Long id);
+
 
     List<String> getAllAdresses();
     int nombreTotalParking();
 
     List<Parking> findBySecteur(Long secteurId) throws ResourceNotFoundException;
+
 
     
     
