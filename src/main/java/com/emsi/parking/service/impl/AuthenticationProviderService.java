@@ -5,7 +5,6 @@
 package com.emsi.parking.service.impl;
 
 import com.emsi.parking.model.CustomUtilisateurDetails;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,7 +13,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -27,12 +25,6 @@ public class AuthenticationProviderService implements AuthenticationProvider{
    @Autowired 
  private JpaUtilisateurDetailsService utilisateurDetailsService;
 
-
-
-
-
-
-
 @Override
 public Authentication authenticate(Authentication authentication) throws AuthenticationException{
 BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
@@ -44,10 +36,7 @@ String password = authentication.getCredentials().toString();
             
             return checkPassword(utilisateur, password, bCryptPasswordEncoder);
       
-//throw new BadCredentialsException("Bad credentials");
 }
-
-
 
 @Override
 public boolean supports(Class<?> aClass){
