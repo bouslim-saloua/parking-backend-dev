@@ -2,20 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.emsi.parking.payload;
+package com.emsi.parking.exception;
 
-import lombok.Getter;
-import lombok.Setter;
 /**
  *
  * @author bssal
  */
-
-
-@Getter
-@Setter
-public class LoginRequest {
-    private String email;
-    private String password;
+public class ResourceNotFoundException extends RuntimeException{
+    public ResourceNotFoundException(String message){
+        super(message);
+    }
 }
-

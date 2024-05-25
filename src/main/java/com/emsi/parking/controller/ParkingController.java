@@ -44,7 +44,7 @@ public class ParkingController {
     
     @GetMapping("/locations")
     public ResponseEntity<?> getAllLocations() {
-        return ResponseEntity.ok().body(parkingService.getAllLocations());
+        return ResponseEntity.ok().body(parkingService.getAllAdresses());
     }
 
     @PostMapping
@@ -80,6 +80,7 @@ public class ParkingController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+
      @GetMapping("/all")
     public ResponseEntity<List<Parking>> getAllParkings() {
         List<Parking> parkings = parkingService.listeParkings();
@@ -99,4 +100,12 @@ public class ParkingController {
 
     
    
+
+    
+    @GetMapping("/secteurs/{secteurId}/parkings")
+    public ResponseEntity<?> getParkingsBySecteur(@PathVariable Long secteurId) {
+        return ResponseEntity.ok().body(parkingService.findBySecteur(secteurId));
+
+    }
+
 }

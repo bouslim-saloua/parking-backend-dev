@@ -34,4 +34,7 @@ private String email;
 
 @JsonProperty("telephone")
 private String telephone;
+
+@JsonProperty("codeQrImagePath")
+private String qrCodeImage;
 }

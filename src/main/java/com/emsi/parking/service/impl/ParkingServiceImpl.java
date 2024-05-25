@@ -1,24 +1,38 @@
 package com.emsi.parking.service.impl;
+
+
+import com.emsi.parking.exception.ResourceNotFoundException;
+
 import com.emsi.parking.model.Parking;
+import com.emsi.parking.model.Secteur;
 import com.emsi.parking.repository.ParkingRepository;
+import com.emsi.parking.repository.SecteurRepository;
 import org.springframework.stereotype.Service;
 
 import com.emsi.parking.service.ParkingService;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+
 import java.util.stream.Collectors;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
 
 @RequiredArgsConstructor
 @Service
 public class ParkingServiceImpl implements ParkingService{
 
     final ParkingRepository parkingRepository;
+    final SecteurRepository secteurRepository;
+
 
    /* @Override
+
+    final SecteurRepository secteurRepository;
+    @Override
+
     public Parking ajouter(Parking parking) throws Exception{
         Parking parkingFromDB = parkingRepository.findById(parking.getId()).orElse(null);
          if(parkingFromDB != null) throw new Exception("parking with id " + parking.getId() + "already exists");
@@ -50,11 +64,22 @@ public class ParkingServiceImpl implements ParkingService{
         return parkingRepository.findAllDisponible();
     }
 
-    @Override
+    /*@Override
     public List<String> getAllLocations() {
         return parkingRepository.findAll().stream()
                 .map(Parking::getLocation)
                 .collect(Collectors.toList());
+    }
+    */
+    @Override
+    public int nombreTotalParking() {
+        return parkingRepository.nombreTotalParking();
+    }
+
+    //à compléter 
+    @Override
+    public List<String> getAllAdresses() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -68,7 +93,7 @@ public class ParkingServiceImpl implements ParkingService{
     if (existingParkingOptional.isPresent()) {
         Parking existingParking = existingParkingOptional.get();
         existingParking.setNom(updatedParking.getNom());
-        existingParking.setLocation(updatedParking.getLocation());
+        existingParking.setAdresse(updatedParking.getAdresse());
         existingParking.setCapacite(updatedParking.getCapacite());
         existingParking.setStatus(updatedParking.getStatus());        
         return parkingRepository.save(existingParking);
@@ -92,5 +117,13 @@ public class ParkingServiceImpl implements ParkingService{
 
     
 
+
+    public List<Parking> findBySecteur(Long secteurId) throws ResourceNotFoundException{
+        Secteur secteur = secteurRepository.findById(secteurId)
+                           .orElseThrow(() -> new ResourceNotFoundException("Secteur not found"));
+        return parkingRepository.findBySecteur(secteur);
+    }
+
+    
 
 }

@@ -19,4 +19,8 @@ Reservation cancelReservation(Long reservationId) throws Exception;
 
 Long countReservationsToday();
 
+
+    int nombreTotalReservations();
+    int nombreTotalReservationsAnnulee();
+    int nombreTotalReservationsEnCours();
 }
