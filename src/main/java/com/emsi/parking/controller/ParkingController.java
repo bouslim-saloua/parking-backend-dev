@@ -72,12 +72,7 @@ public class ParkingController {
     }
 
 
-     @GetMapping("/all")
-    public ResponseEntity<List<Parking>> getAllParkings() {
-        List<Parking> parkings = parkingService.listeParkings();
-        return ResponseEntity.ok().body(parkings);
-    }
-
+    
 
     @GetMapping("/{id}")
     public ResponseEntity<Parking> getParkingById(@PathVariable long id) {
@@ -89,8 +84,6 @@ public class ParkingController {
        }
 }
 
-    
-   
 
     
     @GetMapping("/secteurs/{secteurId}/parkings")

@@ -19,6 +19,7 @@ import com.emsi.parking.security.JwtUtils;
 import com.google.zxing.WriterException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
@@ -60,7 +61,21 @@ UtilisateurRepository userRepository;
 //signIn
 
 @PostMapping("/signIn")
-	public ResponseEntity<?> authenticateDemandeur(@Valid @RequestBody LoginRequest loginRequest) {
+	public ResponseEntity<?> authenticate(@Valid @RequestBody LoginRequest loginRequest) {
+            Optional<Utilisateur> user = userRepository.findByEmail(loginRequest.getEmail());
+
+            if(!(userRepository.existsByEmail(loginRequest.getEmail()))){
+			return ResponseEntity
+					.badRequest()
+					.body(new MessageResponse("Error: Email or password don't match!"));
+
+		}else if (user.isPresent()) {
+			Utilisateur utilisateur = user.get();
+			if (!(encoder.matches(loginRequest.getPassword(), utilisateur.getPassword()))) {
+				return ResponseEntity.badRequest().body(new MessageResponse("Error: Password doesn't match!"));
+			}
+
+		}
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -76,7 +91,7 @@ userDetails.getNom(), userDetails.getPrenom(), userDetails.getTelephone(), userD
 	}
 
 @PostMapping("/signup")
-	public ResponseEntity<?> registerDemandeur(@Valid @RequestBody SignupRequest signUpRequest) throws WriterException {
+	public ResponseEntity<?> register(@Valid @RequestBody SignupRequest signUpRequest) throws WriterException {
 		//Error when email is already in use
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
 			return ResponseEntity
@@ -85,9 +100,13 @@ userDetails.getNom(), userDetails.getPrenom(), userDetails.getTelephone(), userD
 		}
 
             //Error when phone is already in use!
-if(userRepository.existsByTelephone(signUpRequest.getTelephone()) || userRepository.existsByTelephone(signUpRequest.getTelephone())){
+if( userRepository.existsByTelephone(signUpRequest.getTelephone())){
 return ResponseEntity.badRequest().body(new MessageResponse("Erorr: N° Telephone est déjà utilisé!"));
 }
+if( userRepository.existsByCin(signUpRequest.getCin())){
+return ResponseEntity.badRequest().body(new MessageResponse("Erorr: CIN est déjà utilisé!"));
+}
+
  try {
            String qrCode = signUpRequest.getEmail()+"_"+System.currentTimeMillis();
             String qrCodePath = "qr_codes/" + signUpRequest.getEmail() + "_" + System.currentTimeMillis() + ".png";
