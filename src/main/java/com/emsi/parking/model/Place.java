@@ -1,7 +1,9 @@
 package com.emsi.parking.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.List;
 
@@ -20,7 +22,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Place implements Serializable{
 /**
 	 * 
@@ -32,7 +34,7 @@ private Long id;
 private int numero;
 private boolean reserve;
 
-@JsonBackReference
+//@JsonBackReference
 @ManyToOne
 private Parking parking;
 
