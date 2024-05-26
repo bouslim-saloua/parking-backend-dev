@@ -32,5 +32,7 @@ private boolean reserve;
 private Parking parking;
 @OneToMany(mappedBy = "place")
 private List<Reservation> reservations;
-
+public Place() {
+	
+}
 }

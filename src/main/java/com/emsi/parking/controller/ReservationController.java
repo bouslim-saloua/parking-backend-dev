@@ -1,9 +1,12 @@
 package com.emsi.parking.controller;
 
+
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.emsi.parking.model.Paiement;
 import com.emsi.parking.model.Reservation;
 import com.emsi.parking.service.ReservationService;
 
@@ -25,15 +27,20 @@ public class ReservationController {
 	@Autowired
 	private ReservationService reservationServices;
 
-	
-	@PostMapping( "/save")
-	public Reservation save(@RequestBody Reservation r) throws Exception {
-		return reservationServices.ajouter(r);
+
+	@PostMapping("/add")
+	public ResponseEntity<?> reserverPlace(@RequestBody Reservation reservation) {
+		try {
+			Reservation newReservation = reservationServices.ajouter(reservation);
+			return ResponseEntity.ok().body(newReservation);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
 	}
-	
-    @DeleteMapping("/delete")
+
+	@DeleteMapping("/delete")
 	public void delete(@RequestBody Reservation r) {
-    	reservationServices.delete(r);
+		reservationServices.delete(r);
 	}
 	@GetMapping("")
 	public List<Reservation> findAll() {
@@ -49,7 +56,27 @@ public class ReservationController {
 	}
 	//afficher le nombre des reservations effectuees durant la journée 	
 	@GetMapping("/reservations/countToday")
-    public Long getCountToday() {
-        return reservationServices.countReservationsToday();
-    }
+	public Long getCountToday() {
+		return reservationServices.countReservationsToday();
+	}
+	//confirmer une reservation 
+	@PutMapping("/confirm/{id}")
+	public ResponseEntity<Reservation> confirmerReservation(@PathVariable Long id) {
+		try {
+			Reservation reservation = reservationServices.confirmerReservation(id);
+			return ResponseEntity.ok(reservation);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+	}
+	//annuler une reservation
+	@PutMapping("/cancel/{id}")
+	public ResponseEntity<Reservation> annulerReservation(@PathVariable Long id) {
+		try {
+			Reservation reservation = reservationServices.annulerReservation(id);
+			return ResponseEntity.ok(reservation);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+	}
 }
