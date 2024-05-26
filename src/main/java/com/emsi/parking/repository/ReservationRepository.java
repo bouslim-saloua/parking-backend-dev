@@ -9,10 +9,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.emsi.parking.model.Reservation;
+import org.springframework.data.jpa.repository.Query;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
-
 
 	Long countByDateReservation(Date date);
 
@@ -20,5 +20,14 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
            "((:heureEntree BETWEEN r.heureEntree AND r.heureSortie) OR (:heureSortie BETWEEN r.heureEntree AND r.heureSortie) OR " +
            "(r.heureEntree BETWEEN :heureEntree AND :heureSortie) OR (r.heureSortie BETWEEN :heureEntree AND :heureSortie))")
     List<Reservation> findConflictingReservations(Long placeId, Date dateReservation, int heureEntree, int heureSortie);
-	}
 
+    @Query(value="SELECT COUNT(*) FROM Reservation")
+    int nombreTotalReservations();
+    
+    @Query(value="SELECT COUNT(*) FROM Reservation R where R.status = 'annulée'")
+    int nombreTotalReservationsAnnulee();
+    
+    @Query(value="SElECT COUNT(*) FROM Reservation R WHERE R.status = 'en cours'")
+    int nombreTotalReservationsEnCours();
+
+}

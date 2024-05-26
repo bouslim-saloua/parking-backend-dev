@@ -123,4 +123,20 @@ public class ReservationServiceImpl implements ReservationService{
 		reservationRepository.deleteById(id);		
 	}
 
+    @Override
+    public int nombreTotalReservations() {
+        return reservationRepository.nombreTotalReservations();
+    }
+
+    @Override
+    public int nombreTotalReservationsAnnulee() {
+        return reservationRepository.nombreTotalReservationsAnnulee();
+    }
+
+    @Override
+    public int nombreTotalReservationsEnCours() {
+        return reservationRepository.nombreTotalReservationsEnCours();
+    }
+
+
 }

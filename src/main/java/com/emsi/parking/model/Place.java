@@ -1,5 +1,7 @@
 package com.emsi.parking.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,12 +14,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
+
 public class Place implements Serializable{
 /**
 	 * 
@@ -28,11 +31,26 @@ public class Place implements Serializable{
 private Long id;
 private int numero;
 private boolean reserve;
+
+@JsonBackReference
 @ManyToOne
 private Parking parking;
+
+ @JsonManagedReference
 @OneToMany(mappedBy = "place")
 private List<Reservation> reservations;
-public Place() {
-	
-}
+
+
+ // Default constructor
+    public Place() {
+    }
+
+    // Parameterized constructor
+    public Place(Long id, int numero, Parking parking, boolean reserve) {
+        this.id = id;
+        this.numero = numero;
+        this.parking = parking;
+        this.reserve = reserve;
+    }
+
 }

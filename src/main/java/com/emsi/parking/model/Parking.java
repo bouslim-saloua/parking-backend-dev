@@ -1,5 +1,7 @@
 package com.emsi.parking.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
@@ -28,10 +31,15 @@ public class Parking implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String nom;
-	private String location;
+	private String adresse;
 	private int capacite;
 	private String status;
 	
+        @ManyToOne
+        @JsonBackReference
+        private Secteur secteur;
+        
+         @JsonManagedReference
 	@OneToMany(mappedBy="parking")
 	private List<Place> places;
 

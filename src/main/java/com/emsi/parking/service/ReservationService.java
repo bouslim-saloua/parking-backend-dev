@@ -13,4 +13,7 @@ public interface ReservationService {
 	Reservation confirmerReservation(Long id) throws Exception;
 	Reservation annulerReservation(Long id) throws Exception;
 	Reservation ajouter(Reservation reservation) throws Exception;
+	int nombreTotalReservations();
+	int nombreTotalReservationsAnnulee();
+	int nombreTotalReservationsEnCours();
 }
