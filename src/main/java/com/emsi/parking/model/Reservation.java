@@ -1,6 +1,8 @@
 package com.emsi.parking.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -17,6 +19,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Reservation implements Serializable{
 	/**
 	 * 
@@ -35,13 +38,14 @@ public class Reservation implements Serializable{
 	private int heureEntree;
 	private int heureSortie;
         
-        @JsonBackReference
+       // @JsonBackReference
 	@ManyToOne
 	private Utilisateur utilisateur;
         
-        @JsonBackReference
+       // @JsonBackReference
 	@ManyToOne
 	private Place place;
+        
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "paiement_id", referencedColumnName = "id")
 	private Paiement paiement;

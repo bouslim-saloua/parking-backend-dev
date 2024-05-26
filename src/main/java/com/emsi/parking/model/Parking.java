@@ -39,11 +39,15 @@ public class Parking implements Serializable{
 	private String status;
 	
         @ManyToOne
-        @JsonBackReference
+       // @JsonBackReference
         private Secteur secteur;
         
         // @JsonManagedReference
 	@OneToMany(mappedBy="parking")
 	private List<Place> places;
+        
+        public Parking(Long id) {
+        this.id = id;
+    }
 
 }

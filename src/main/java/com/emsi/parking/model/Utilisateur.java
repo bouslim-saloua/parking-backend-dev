@@ -1,6 +1,8 @@
 package com.emsi.parking.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
@@ -27,6 +29,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Utilisateur implements Serializable{
 /**
 	 * 
@@ -45,7 +48,7 @@ private String codeQrImagePath;
 private String telephone;
 private String role;
 
- @JsonManagedReference
+// @JsonManagedReference
 @OneToMany(mappedBy = "utilisateur")
 private List<Reservation> reservations;
 
