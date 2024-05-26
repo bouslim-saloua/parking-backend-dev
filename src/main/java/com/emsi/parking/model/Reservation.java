@@ -1,5 +1,6 @@
 package com.emsi.parking.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -33,8 +34,12 @@ public class Reservation implements Serializable{
 	private Date dateSortie;
 	private int heureEntree;
 	private int heureSortie;
+        
+        @JsonBackReference
 	@ManyToOne
 	private Utilisateur utilisateur;
+        
+        @JsonBackReference
 	@ManyToOne
 	private Place place;
 	@OneToOne(cascade = CascadeType.ALL)

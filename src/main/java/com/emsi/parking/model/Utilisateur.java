@@ -1,5 +1,6 @@
 package com.emsi.parking.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
@@ -44,6 +45,7 @@ private String codeQrImagePath;
 private String telephone;
 private String role;
 
+ @JsonManagedReference
 @OneToMany(mappedBy = "utilisateur")
 private List<Reservation> reservations;
 

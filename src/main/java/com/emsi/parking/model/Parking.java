@@ -1,6 +1,7 @@
 package com.emsi.parking.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class Parking implements Serializable{
         @JsonBackReference
         private Secteur secteur;
         
+         @JsonManagedReference
 	@OneToMany(mappedBy="parking")
 	private List<Place> places;
 
